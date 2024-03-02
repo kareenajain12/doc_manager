@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../register/register_screen.dart';
-
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<SignInScreen> createState() => _SignInScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +25,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     padding: EdgeInsets.only(top: 200),
                     child: Align(
                       child: Text(
-                        "Sign In",
+                        "Register",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 28,
@@ -35,7 +35,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(left: 16, right: 16, top: 20),
+                    const EdgeInsets.only(left: 16, right: 16, top: 20),
                     child: TextField(
                       onTapOutside: (event) {
                         FocusManager.instance.primaryFocus?.unfocus();
@@ -50,7 +50,6 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                         label: const Text('Email',
                             style: TextStyle(color: Colors.white)),
-                        hintText: 'Enter mail',
                         enabledBorder: OutlineInputBorder(
                           borderSide: const BorderSide(color: Colors.grey),
                           borderRadius: BorderRadius.circular(15),
@@ -74,7 +73,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(left: 16, right: 16, top: 20),
+                    const EdgeInsets.only(left: 16, right: 16, top: 20),
                     child: TextField(
                       obscureText: _obscurePassword,
                       onTapOutside: (event) {
@@ -106,7 +105,61 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                         label: const Text('Password',
                             style: TextStyle(color: Colors.white)),
-                        hintText: 'Enter Password',
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                            color: Colors.blueGrey,
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                            color: Colors.red,
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                    const EdgeInsets.only(left: 16, right: 16, top: 20),
+                    child: TextField(
+                      obscureText: _obscureConfirmPassword,
+                      onTapOutside: (event) {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                      },
+                      cursorColor: Colors.white,
+                      style: const TextStyle(color: Colors.white, fontSize: 20),
+                      decoration: InputDecoration(
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 4, 0),
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _obscureConfirmPassword = !_obscureConfirmPassword;
+                              });
+                            },
+                            child: Icon(
+                              _obscureConfirmPassword
+                                  ? Icons.visibility_rounded
+                                  : Icons.visibility_off_rounded,
+                              size: 24,
+                            ),
+                          ),
+                        ),
+                        isDense: true,
+                        hintStyle: const TextStyle(
+                          color: Colors.white24,
+                          fontSize: 17,
+                        ),
+                        label: const Text('Confirm Password',
+                            style: TextStyle(color: Colors.white)),
                         enabledBorder: OutlineInputBorder(
                           borderSide: const BorderSide(color: Colors.grey),
                           borderRadius: BorderRadius.circular(15),
@@ -139,7 +192,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         elevation: 50,
                       ),
                       child: const Text(
-                        'Sign In',
+                        'Register',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -150,15 +203,15 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(top: 50, left: 10, right: 10),
+                    const EdgeInsets.only(top: 50, left: 10, right: 10),
                     child: Row(
                       children: [
                         Expanded(
                             child: Container(
-                          color: Colors.white,
-                          height: 1,
-                          width: 150,
-                        )),
+                              color: Colors.white,
+                              height: 1,
+                              width: 150,
+                            )),
                         const Padding(
                           padding: EdgeInsets.only(left: 4, right: 4),
                           child: Text(
@@ -168,10 +221,10 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                         Expanded(
                             child: Container(
-                          color: Colors.white,
-                          height: 1,
-                          width: 150,
-                        )),
+                              color: Colors.white,
+                              height: 1,
+                              width: 150,
+                            )),
                       ],
                     ),
                   ),
@@ -192,7 +245,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               const Padding(
                                 padding: EdgeInsets.only(left: 10),
                                 child: Text(
-                                  "Sign in with Google",
+                                  "Register with Google",
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 20),
                                 ),
@@ -201,21 +254,6 @@ class _SignInScreenState extends State<SignInScreen> {
                           ),
                         )),
                   ),
-                  const Spacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        "Didn't have an account?",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                      TextButton(onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const RegisterScreen()));
-                      }, child: const Text("Register",
-                        style: TextStyle(color: Colors.green, fontSize: 20,),
-                      ))
-                    ],
-                  )
                 ],
               ),
             ),
