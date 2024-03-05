@@ -1,3 +1,4 @@
+import 'package:doc_manager/module/home/widgets/doc_card.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -46,12 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: ListView.separated(
         itemCount: 100,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text('$index sheep',
-              style: const TextStyle(
-                color: Colors.white
-              )),
-          );
+          return const DocCard();
         },
         separatorBuilder: (context, index) {
           return const Divider();

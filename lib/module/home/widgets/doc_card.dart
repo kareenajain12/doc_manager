@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class DocCard extends StatefulWidget {
   const DocCard({super.key});
@@ -10,6 +10,16 @@ class DocCard extends StatefulWidget {
 class _DocCardState extends State<DocCard> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      child: Row(
+        children: [
+          Image.network(
+            "https://pmmodiyojana.in/wp-content/uploads/2022/08/image-170.png",
+            height: 300,
+            width: 200,
+          )
+        ],
+      ),
+    );
   }
 }
