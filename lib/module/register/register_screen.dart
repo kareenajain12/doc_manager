@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../home/home_screen.dart';
+
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
@@ -185,6 +187,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     padding: const EdgeInsets.only(top: 25),
                     child: ElevatedButton(
                       onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const HomeScreen(),
+                          ),
+                        );
                         // Perform an action when the button is pressed
                       },
                       style: ElevatedButton.styleFrom(

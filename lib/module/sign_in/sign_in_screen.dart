@@ -1,3 +1,4 @@
+import 'package:doc_manager/module/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../register/register_screen.dart';
@@ -132,6 +133,11 @@ class _SignInScreenState extends State<SignInScreen> {
                     padding: const EdgeInsets.only(top: 25),
                     child: ElevatedButton(
                       onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const HomeScreen(),
+                          ),
+                        );
                         // Perform an action when the button is pressed
                       },
                       style: ElevatedButton.styleFrom(
@@ -210,8 +216,12 @@ class _SignInScreenState extends State<SignInScreen> {
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                       TextButton(onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const RegisterScreen()));
-                      }, child: const Text("Register",
+                        Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const RegisterScreen(),
+                              ),
+                            );
+                          }, child: const Text("Register",
                         style: TextStyle(color: Colors.green, fontSize: 20,),
                       ))
                     ],
