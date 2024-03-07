@@ -45,12 +45,15 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       body: ListView.separated(
+        padding: const EdgeInsets.only(top: 20, bottom: 20),
         itemCount: 100,
         itemBuilder: (context, index) {
           return const DocCard();
         },
         separatorBuilder: (context, index) {
-          return const Divider();
+          return const SizedBox(
+            height: 22,
+          );
         },
       ),
     );
