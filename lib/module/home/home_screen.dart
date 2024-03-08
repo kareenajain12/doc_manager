@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         separatorBuilder: (context, index) {
           return const SizedBox(
-            height: 22,
+            height: 30,
           );
         },
       ),
