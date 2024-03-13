@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../home/home_screen.dart';
@@ -12,6 +13,8 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
+  final TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +42,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     padding:
                     const EdgeInsets.only(left: 16, right: 16, top: 20),
                     child: TextField(
+                      controller: _emailController,
                       onTapOutside: (event) {
                         FocusManager.instance.primaryFocus?.unfocus();
                       },
@@ -77,6 +81,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     padding:
                     const EdgeInsets.only(left: 16, right: 16, top: 20),
                     child: TextField(
+                      controller: _passwordController,
                       obscureText: _obscurePassword,
                       onTapOutside: (event) {
                         FocusManager.instance.primaryFocus?.unfocus();
@@ -187,11 +192,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     padding: const EdgeInsets.only(top: 25),
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const HomeScreen(),
-                          ),
-                        );
+                        createUserWithEmailPassword();
+
                         // Perform an action when the button is pressed
                       },
                       style: ElevatedButton.styleFrom(
@@ -268,5 +270,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> createUserWithEmailPassword() async {
+    try {
+      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => const HomeScreen(),
+        ),
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 }
