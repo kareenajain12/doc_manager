@@ -1,7 +1,10 @@
 import 'package:doc_manager/module/sign_in/sign_in_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -12,12 +15,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
+        title: 'DocManager',
+        theme: ThemeData(
           scaffoldBackgroundColor: Colors.black,
           useMaterial3: true,
         ),
-      home: const SignInScreen()
-    );
+        home: const SignInScreen());
   }
 }
