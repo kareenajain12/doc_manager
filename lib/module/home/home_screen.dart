@@ -1,3 +1,4 @@
+import 'package:doc_manager/module/add_document/add_document_screen.dart';
 import 'package:doc_manager/module/home/widgets/doc_card.dart';
 import 'package:flutter/material.dart';
 
@@ -30,6 +31,12 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(
             icon: const Icon(Icons.add),
             onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const AddDocumentScreen(),
+                ),
+              );
+
               // handle the press
             },
           ),
