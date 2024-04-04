@@ -14,7 +14,7 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   bool _obscurePassword = true;
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController git_passwordController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
