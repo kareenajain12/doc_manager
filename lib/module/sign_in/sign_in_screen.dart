@@ -1,4 +1,5 @@
 import 'package:doc_manager/module/home/home_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../register/register_screen.dart';
@@ -12,6 +13,8 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   bool _obscurePassword = true;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController git_passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,6 +41,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     padding:
                         const EdgeInsets.only(left: 16, right: 16, top: 20),
                     child: TextField(
+                      controller: _emailController,
                       onTapOutside: (event) {
                         FocusManager.instance.primaryFocus?.unfocus();
                       },
@@ -77,6 +81,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     padding:
                         const EdgeInsets.only(left: 16, right: 16, top: 20),
                     child: TextField(
+                      controller: _passwordController,
                       obscureText: _obscurePassword,
                       onTapOutside: (event) {
                         FocusManager.instance.primaryFocus?.unfocus();
@@ -133,11 +138,8 @@ class _SignInScreenState extends State<SignInScreen> {
                     padding: const EdgeInsets.only(top: 25),
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const HomeScreen(),
-                          ),
-                        );
+                        signInWithEmailAndPassword();
+
                         // Perform an action when the button is pressed
                       },
                       style: ElevatedButton.styleFrom(
@@ -233,5 +235,28 @@ class _SignInScreenState extends State<SignInScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> signInWithEmailAndPassword() async {
+    try {
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text,
+          password: _passwordController.text,
+      );
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => const HomeScreen(),
+        ),
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+      debugPrint(e.toString());
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 }
