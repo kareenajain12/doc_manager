@@ -1,6 +1,12 @@
 import 'package:doc_manager/widgets/dropdowns/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 
+enum DocumentState {
+  unUploaded,
+  uploading,
+  uploaded,
+}
+
 class AddDocumentScreen extends StatefulWidget {
   const AddDocumentScreen({super.key});
 
@@ -26,6 +32,7 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
   ];
   String? selectedDocument;
   String? selectedDocumentType;
+  DocumentState currentDocumentState = DocumentState.unUploaded;
 
   final TextEditingController _documentNameController = TextEditingController();
 
@@ -136,10 +143,45 @@ class _AddDocumentScreenState extends State<AddDocumentScreen> {
                   setState(() {
                     selectedDocumentType = value;
                   });
-                })
+                }),
+            const Padding(
+              padding: EdgeInsets.only(top: 30, bottom: 10),
+              child: Text(
+                "Upload (in pdf format)",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            uploadDocument(),
           ],
         ),
       ),
     );
+  }
+
+  Widget uploadDocument() {
+    switch (currentDocumentState) {
+      case DocumentState.unUploaded:
+        return OutlinedButton(
+          style: OutlinedButton.styleFrom(
+            side: const BorderSide(width: 1.0, color: Colors.white),
+          ),
+          onPressed: () {},
+          child: const Text(
+            "UPLOAD",
+            style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                color: Colors.green),
+          ),
+        );
+      case DocumentState.uploading:
+        return Container();
+      case DocumentState.uploaded:
+        return Container();
+    }
   }
 }
